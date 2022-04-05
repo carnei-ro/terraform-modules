@@ -35,11 +35,11 @@ variable "oidc_response_types" {
 }
 
 variable "default_lease_ttl" {
-  description = "Specifies the default time-to-live. If set, this overrides the global default. Must be a valid duration string"
+  description = "Specifies the default time-to-live. This overrides the global default. Must be a valid duration string"
   default     = "48h"
 }
 
 variable "max_lease_ttl" {
-  description = "Specifies the maximum time-to-live. If set, this overrides the global default. Must be a valid duration string"
+  description = "Specifies the maximum time-to-live. This overrides the global default. Must be a valid duration string"
   default     = "48h"
 }
