@@ -61,3 +61,15 @@ variable "mesh_ca_backend_path" {
   description = "Vault PKI mount path for the Signer CA (Mesh CA)"
   type        = string
 }
+
+variable "export_to_vault_kv_enabled" {
+  description = "Flag to export CA, Bundle, Certificate and PrivateKey (if 'type is exported') to KV path in vault"
+  type        = bool
+  default     = false
+}
+
+variable "export_to_vault_kv_path" {
+  description = "Vault KV Path to store exported CA, Bundle, Certificate and PrivateKey (if 'type is exported')"
+  type        = string
+  default     = null
+}

@@ -45,3 +45,16 @@ resource "vault_pki_secret_backend_intermediate_set_signed" "this" {
   backend     = vault_mount.this.path
   certificate = format("%s\n%s", vault_pki_secret_backend_root_sign_intermediate.this.certificate, var.mesh_ca_bundle)
 }
+
+resource "vault_generic_secret" "this" {
+  count = var.export_to_vault_kv_enabled == true ? 1 : 0
+
+  path = var.export_to_vault_kv_path
+  data_json = jsonencode({
+    "root-cert.pem"  = var.mesh_ca_bundle
+    "ca-key.pem"     = vault_pki_secret_backend_intermediate_cert_request.this.private_key
+    "cert-chain.pem" = format("%s\n%s", vault_pki_secret_backend_root_sign_intermediate.this.certificate, var.mesh_ca_bundle)
+    "ca-cert.pem"    = vault_pki_secret_backend_root_sign_intermediate.this.certificate
+  })
+  disable_read = true
+}
